@@ -1,0 +1,21 @@
+#!/bin/bash
+# Description: Display dotfiles information
+
+set -euo pipefail
+
+dotfiles_dir="$HOME/dotfiles"
+today=$(date +%Y-%m-%d)
+
+if [[ ! -d "$dotfiles_dir" ]]; then
+  echo "Error: $dotfiles_dir does not exist."
+  exit 1
+fi
+
+# Count regular files in the top level of the dotfiles directory
+file_count=$(find "$dotfiles_dir" -maxdepth 1 -type f -printf '.' | wc -c)
+
+echo "=== Dotfiles Info ==="
+echo "User: $USER"
+echo "Dotfiles location: $dotfiles_dir"
+echo "Files tracked: $file_count"
+echo "Date: $today"
