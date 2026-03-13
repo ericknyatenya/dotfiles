@@ -2,10 +2,21 @@
 
 # Description: Link dotfiles to home directory
 
+set -e
+
+echo "Setting up dotfiles..."
+
+# Detect where the dotfiles repo actually lives
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "Dotfiles directory: $DOTFILES_DIR"
+
+# Create config directory if it doesn't exist
 mkdir -p ~/.config
 
-ln -sf ~/dotfiles/bashrc ~/.bashrc
-ln -sf ~/dotfiles/vimrc ~/.vimrc
-ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
+# Create symlinks
+ln -sf "$DOTFILES_DIR/bashrc" ~/.bashrc
+ln -sf "$DOTFILES_DIR/vimrc" ~/.vimrc
+ln -sf "$DOTFILES_DIR/starship.toml" ~/.config/starship.toml
 
-echo "Dotfiles linked!"
+echo "Dotfiles linked successfully!"
